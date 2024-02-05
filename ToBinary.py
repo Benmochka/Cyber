@@ -13,16 +13,16 @@ print(ToBinary(num,size))
 def ToNegative(num):
     num = list(num)
     for i in range(0,len(num)):
-        if(num[i] == '0'):
+        if num[i] == '0':
             num[i] = '1'
         else:
             num[i] = '0'  
-    if(num[-1] == '0'):
+    if num[-1] == '0':
         num[-1] = '1'
     else:
         num[-1] = '0'
         for i in range(2,len(num)-1):
-            if(num[-i] == '1'):
+            if num[-i] == '1':
                 num[-i] = '0'
             else:
                 num[-i] = '1'
