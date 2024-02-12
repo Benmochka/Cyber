@@ -22,7 +22,7 @@ def is_palindrome(word):
 def longest_word(sentence):
     sentence.split()
     word = sentence[0]
-    for i in range(1,len(sentence)-1):
+    for i in range(1,len(sentence)):
         if sentence[i] > word:
             word = sentence[i]
     return word
