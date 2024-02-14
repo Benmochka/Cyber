@@ -1,14 +1,14 @@
-def most_common(fyle_path, n):
-    with open(fyle_path,'w') as f:
+def most_common(fyle_path,n):
+    with open(fyle_path, 'w+') as f:
+        f.seek(0)
         data = f.read()
-    data.split()
+    words = data.split(' ')
     words_count = {}
-    for word in data:
-        if word in words_count:
-            words_count[word] += 1
-        else:
-            words_count[word] = 1        
-    sorted_words = sorted(words_count.item(),key = lambda x: x[1], reverse = True)  
+    for word in set(words):
+        words_count[word] = words.count(word)     
+    sorted_words = sorted(words_count.items(),key = lambda x: x[1], reverse = True)
+    print(sorted_words)  
     for i in range(n):
-        return sorted_words[i]
-    
+        print(sorted_words[i])
+
+print(most_common(2))    
