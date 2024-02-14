@@ -1,7 +1,10 @@
 def most_common(fyle_path,n):
-    with open(fyle_path, 'w+') as f:
-        f.seek(0)
-        data = f.read()
+    try:
+        with open(fyle_path, 'w+') as f:
+            f.seek(0)
+            data = f.read()
+    except FileNotFoundError:
+        print("The file was not found")
     words = data.split(' ')
     words_count = {}
     for word in set(words):
