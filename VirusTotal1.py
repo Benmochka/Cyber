@@ -1,4 +1,5 @@
 import requests
+import os
 
 def scanFileAtVT(file_path):
     ##sending the file for scanning
@@ -24,11 +25,8 @@ def scanFileAtVT(file_path):
         counttotal += 1
         if(data['scans'][i]['detected'] == True):
             countpos += 1
-    print(f'{countpos} sources out of {counttotal} found the file malicious ')        
+    print(f'{countpos} sources out of {counttotal} found ' + os.path.basename(file_path) + ' malicious')        
 
-scanFileAtVT(r"C:\Users\Lenovo\Documents\Diabetes prediction with KNN.docx")
-
-import os
 def getFiles(path):
     for filename in os.listdir(path):
         print("--" + filename)
@@ -36,5 +34,16 @@ def getFiles(path):
         if os.path.isdir(fullname): 
             getFiles(fullname)
         else:
-            scanFileAtVT(fullname)
-            
+            scanFileAtVT(fullname) 
+
+import tkinter as tk
+from tkinter import *
+w = tk.Tk()
+w.title('Antivirus - Virus Total API')
+Label(w, text='Enter your file/folder you want to check').grid(row=1)
+e1 = Entry(w)
+e1.grid(row=1, column=1)
+e2 = Label(w, text='Antivirus made by Benjamin Vaniche, Enjoy!')
+e2.grid(row=10, column=10)
+w.mainloop()
+
