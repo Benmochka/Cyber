@@ -28,3 +28,13 @@ def scanFileAtVT(file_path):
 
 scanFileAtVT(r"C:\Users\Lenovo\Documents\Diabetes prediction with KNN.docx")
 
+import os
+def getFiles(path):
+    for filename in os.listdir(path):
+        print("--" + filename)
+        fullname = os.path.join(path, filename)
+        if os.path.isdir(fullname): 
+            getFiles(fullname)
+        else:
+            scanFileAtVT(fullname)
+            
