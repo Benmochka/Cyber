@@ -9,7 +9,7 @@ form = "utf-8"
 def run_server():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((server_ip, port))
-    server.listen()
+    server.listen(1)
     print("Server is listening on {}:{}".format(server_ip, port))
     
     while True:
