@@ -3,6 +3,7 @@ import threading
 import keyboard
 import mouse
 from PIL import Image
+import io 
 
 size = 1024
 form = "utf-8" 
@@ -58,6 +59,7 @@ class Mouse:
         if event.event_type == mouse.UP and event.button == mouse.LEFT:
             self.client_socket.sendall(event.x.encode(encode),event.y.encode(encode))
             kindOfClick = "left"
+
             self.client_socket.sendall(kindOfClick.encode(encode))
         elif event.event_type == mouse.UP and event.button == mouse.RIGHT:
             self.client_socket.sendall(event.x.encode(encode),event.y.encode(encode))
@@ -75,25 +77,29 @@ class Mouse:
         mouse.wait
 
 mouse_listener = Mouse(server_ip, mouse_port)      
-mouse_thread = threading.Thread(target = mouse_listener.start_listening)
+mouse_thread = threading.Thread(target = mouse_listener.start_listening())
 mouse_thread.start()
 
 try:
     mouse_thread.join()
 except KeyboardInterrupt:
     print("Terminating...")
-    keyboard.unhook_all()
+    mouse.unhook_all()
     mouse_listener.client_socket.close()
     mouse_listener.tcp_ms_socket.close()
 
 class Screenshots:
-    def __init__(self) -> None:
-        pass
-    udp_socket = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-    udp_socket.bind(server_ip, screen_port)
+    def __init__(self, server_ip, port):
+        self.port = port
+        self.server_ip = server_ip
+        self.udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.udp_socket.connect((self.server_ip, self.port))
 
-    def recv_and_show(screenshot):
-        #recv the image from the socket
-        image.show()
+    def recv_and_show(self):
+        while True:
+            data, addr = self.udp_socket.recvfrom(65536)
+            byte_arr = io.BytesIO(data)
+            image = Image.open(byte_arr)
+            image.show()
 
 
