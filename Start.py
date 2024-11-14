@@ -1,15 +1,19 @@
-from threading import Thread
+from threading import Thread, Lock
+
+mutex = Lock()
 
 counter = 0
 def add():
     global counter
     for _ in range(1000000):
-        counter += 1
+        with mutex:
+            counter += 1
     
 def decrement():
     global counter
     for _ in range(1000000):
-        counter -= 1    
+        with mutex:
+            counter -= 1    
 
 thread1 = Thread(target = add)  
 thread2 = Thread(target = decrement)
